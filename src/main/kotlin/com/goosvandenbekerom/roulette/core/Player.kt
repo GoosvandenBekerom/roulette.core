@@ -2,8 +2,8 @@ package com.goosvandenbekerom.roulette.core
 
 import com.goosvandenbekerom.roulette.core.exception.NotEnoughChipsException
 
-data class Player(val name: String, val chipColor: String) {
-    var chipAmount: Int = 0
+data class Player(val name: String, val chipColor: String, private val initialChipAmount: Int = 0) {
+    var chipAmount: Int = initialChipAmount
         private set
 
     fun removeChips(amount: Int) {
