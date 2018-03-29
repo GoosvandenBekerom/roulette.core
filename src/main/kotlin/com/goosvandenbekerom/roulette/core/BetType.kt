@@ -41,19 +41,19 @@ sealed class BetType(val multiplier: Int) {
         override fun isWin(result: Result) = result.number == number
     }
     class TwoNumber(vararg val numbers: Int) : BetType(TWO_NUMBER_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in numbers
+        override fun isWin(result: Result) = result.number in numbers.slice(0..1)
     }
     class ThreeNumber(vararg val numbers: Int) : BetType(THREE_NUMBER_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in numbers
+        override fun isWin(result: Result) = result.number in numbers.slice(0..2)
     }
     class FourNumber(vararg val numbers: Int) : BetType(FOUR_NUMBER_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in numbers
+        override fun isWin(result: Result) = result.number in numbers.slice(0..3)
     }
     class FiveNumber(vararg val numbers: Int) : BetType(FIVE_NUMBER_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in numbers
+        override fun isWin(result: Result) = result.number in numbers.slice(0..4)
     }
     class SixNumber(vararg val numbers: Int) : BetType(SIX_NUMBER_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in numbers
+        override fun isWin(result: Result) = result.number in numbers.slice(0..5)
     }
 
     abstract fun isWin(result: Result) : Boolean
