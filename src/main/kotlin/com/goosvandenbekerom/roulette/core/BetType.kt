@@ -1,22 +1,60 @@
 package com.goosvandenbekerom.roulette.core
 
 sealed class BetType(val multiplier: Int) {
-    class Odd() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class Even() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class Red() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class Black() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class FirstHalf() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class SecondHalf() : BetType(ONE_TO_ONE_MULTIPLIER)
-    class FirstDozen() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class SecondDozen() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class ThirdDozen() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class FirstColumn() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class SecondColumn() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class ThirdColumn() : BetType(ONE_TO_TWO_MULTIPLIER)
-    class Number(val number: Int) : BetType(SINGLE_NUMBER_MULTIPLIER)
-    class TwoNumber(vararg val numbers: Int) : BetType(TWO_NUMBER_MULTIPLIER)
-    class ThreeNumber(vararg val numbers: Int) : BetType(THREE_NUMBER_MULTIPLIER)
-    class FourNumber(vararg val numbers: Int) : BetType(FOUR_NUMBER_MULTIPLIER)
-    class FiveNumber(vararg val numbers: Int) : BetType(FIVE_NUMBER_MULTIPLIER)
-    class SixNumber(vararg val numbers: Int) : BetType(SIX_NUMBER_MULTIPLIER)
+    class Odd : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number % 2 != 0
+    }
+    class Even : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number % 2 == 0
+    }
+    class Red : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.color == RouletteColor.RED
+    }
+    class Black : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.color == RouletteColor.BLACK
+    }
+    class FirstHalf : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 1..18
+    }
+    class SecondHalf : BetType(ONE_TO_ONE_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 19..MAX_NUMBER
+    }
+    class FirstDozen : BetType(ONE_TO_TWO_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 1..12
+    }
+    class SecondDozen : BetType(ONE_TO_TWO_MULTIPLIER){
+        override fun isWin(result: Result) = result.number in 13..24
+    }
+    class ThirdDozen : BetType(ONE_TO_TWO_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 25..36
+    }
+    class FirstColumn : BetType(ONE_TO_TWO_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 1..34 step 3
+    }
+    class SecondColumn : BetType(ONE_TO_TWO_MULTIPLIER){
+        override fun isWin(result: Result) = result.number in 2..35 step 3
+    }
+    class ThirdColumn : BetType(ONE_TO_TWO_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in 3..36 step 3
+    }
+    class Number(val number: Int) : BetType(SINGLE_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number == number
+    }
+    class TwoNumber(vararg val numbers: Int) : BetType(TWO_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in numbers
+    }
+    class ThreeNumber(vararg val numbers: Int) : BetType(THREE_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in numbers
+    }
+    class FourNumber(vararg val numbers: Int) : BetType(FOUR_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in numbers
+    }
+    class FiveNumber(vararg val numbers: Int) : BetType(FIVE_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in numbers
+    }
+    class SixNumber(vararg val numbers: Int) : BetType(SIX_NUMBER_MULTIPLIER) {
+        override fun isWin(result: Result) = result.number in numbers
+    }
+
+    abstract fun isWin(result: Result) : Boolean
 }

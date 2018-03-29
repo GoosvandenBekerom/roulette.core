@@ -24,4 +24,19 @@ data class Game(val id: Long, val minimumBet: Int) {
         if (amount < minimumBet) throw AmountToLowException(amount, minimumBet)
         bets.add(Bet(player, amount, type))
     }
+
+    fun playAndReset() : Result {
+        closeBetting()
+        val result = wheel.spin()
+        results.add(result)
+        payoutWinningBets(result)
+        bets.clear()
+        return result
+    }
+
+    private fun payoutWinningBets(result: Result) {
+        bets.forEach {
+            if (it.type.isWin(result)) it.payout()
+        }
+    }
 }
