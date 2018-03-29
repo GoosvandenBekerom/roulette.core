@@ -17,7 +17,7 @@ sealed class BetType(val multiplier: Int) {
         override fun isWin(result: Result) = result.number in 1..18
     }
     class SecondHalf : BetType(ONE_TO_ONE_MULTIPLIER) {
-        override fun isWin(result: Result) = result.number in 19..MAX_NUMBER
+        override fun isWin(result: Result) = result.number in 19..36
     }
     class FirstDozen : BetType(ONE_TO_TWO_MULTIPLIER) {
         override fun isWin(result: Result) = result.number in 1..12
