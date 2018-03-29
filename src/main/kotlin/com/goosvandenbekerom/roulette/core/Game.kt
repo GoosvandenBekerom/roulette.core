@@ -22,6 +22,7 @@ data class Game(val id: Long, val minimumBet: Int) {
     fun placeBet(player: Player, amount: Int, type: BetType) {
         if (!bettingOpen) throw BettingClosedException()
         if (amount < minimumBet) throw AmountToLowException(amount, minimumBet)
+        player.removeChips(amount)
         bets.add(Bet(player, amount, type))
     }
 
@@ -39,4 +40,6 @@ data class Game(val id: Long, val minimumBet: Int) {
             if (it.type.isWin(result)) it.payout()
         }
     }
+
+    override fun toString() = "Game(id=$id, minimumBet=$minimumBet, bettingOpen=$bettingOpen. amountOfBets=${bets.count()})"
 }
