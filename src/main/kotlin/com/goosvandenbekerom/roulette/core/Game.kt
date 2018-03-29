@@ -30,15 +30,15 @@ data class Game(val id: Long, val minimumBet: Int) {
         closeBetting()
         val result = wheel.spin()
         results.add(result)
-        payoutWinningBets(result)
-        bets.clear()
+        payoutBets(result)
         return result
     }
 
-    private fun payoutWinningBets(result: Result) {
+    private fun payoutBets(result: Result) {
         bets.forEach {
-            if (it.type.isWin(result)) it.payout()
+            it.payout(result)
         }
+        bets.clear()
     }
 
     override fun toString() = "Game(id=$id, minimumBet=$minimumBet, bettingOpen=$bettingOpen. amountOfBets=${bets.count()})"
