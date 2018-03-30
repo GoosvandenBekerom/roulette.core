@@ -3,8 +3,7 @@ package com.goosvandenbekerom.roulette.core
 import com.goosvandenbekerom.roulette.core.exception.AmountToLowException
 import com.goosvandenbekerom.roulette.core.exception.BettingClosedException
 
-data class Game(val id: Long, val minimumBet: Int) {
-    val wheel = Wheel(id)
+data class Game(val id: Long, val minimumBet: Int, val wheel: IWheel = BasicWheel(id)) {
     val bets = mutableSetOf<Bet>()
     val results = mutableSetOf<Result>()
 
