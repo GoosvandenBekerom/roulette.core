@@ -39,6 +39,4 @@ data class Game(val id: Long, val minimumBet: Int, val wheel: IWheel = BasicWhee
         }
         bets.clear()
     }
-
-    override fun toString() = "Game(id=$id, minimumBet=$minimumBet, bettingOpen=$bettingOpen. amountOfBets=${bets.count()})"
 }

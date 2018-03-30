@@ -14,6 +14,4 @@ data class Player(val name: String, val chipColor: String, private val initialCh
     fun addChips(amount: Int) {
         chipAmount += amount
     }
-
-    override fun toString() = "Player(name=$name, chipColor=$chipColor, chipAmount=$chipAmount)"
 }
